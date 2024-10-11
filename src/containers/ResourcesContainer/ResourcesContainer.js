@@ -21,7 +21,7 @@ const RightPanel = styled.div`
 `;
 
 function ResourcesContainer() {
-    const [filteredValue, setFilteredValue] = useState();
+    const [filteredValue, setFilteredValue] = useState('');
     const [resources, setResources] = useState([]);
     const [selectedResourceId, setSelectedResourceId] = useState();
 

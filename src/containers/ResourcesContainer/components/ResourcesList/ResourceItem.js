@@ -9,9 +9,9 @@ const StyledListItem = styled.li`
   height: 50px;
   position: relative;
   border-bottom: 1px solid lightgray;
-  background-color: ${({isSelected}) =>
-    isSelected ? 'lightgray' : 'initial'};
-  font-weight: ${({isSelected}) => (isSelected ? '600' : 'initial')};
+  background-color: ${({ $isSelected }) =>
+    $isSelected ? 'lightgray' : 'initial'};
+  font-weight: ${({ $isSelected }) => ($isSelected ? '600' : 'initial')};
 `;
 
 const ResourceName = styled.span`
@@ -26,10 +26,7 @@ const ResourceName = styled.span`
 
 export default function ResourceItem({name, isSelected, onClick}) {
     return (
-        <StyledListItem {...{
-            onClick,
-            // isSelected
-        }}>
+        <StyledListItem onClick={onClick} $isSelected={isSelected}>
             <ResourceName>{name}</ResourceName>
         </StyledListItem>
     );

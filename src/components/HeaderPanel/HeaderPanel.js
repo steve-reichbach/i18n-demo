@@ -37,6 +37,7 @@ export default function HeaderPanel() {
             }} />
             <LanguageSelect>
                 <Select
+                    sx={{backgroundColor: '#f3f3f3'}}
                     size={'small'}
                     value={language}
                     label="Switch language"

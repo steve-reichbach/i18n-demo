@@ -28,7 +28,7 @@ export default function ResourceItem({name, isSelected, onClick}) {
     return (
         <StyledListItem {...{
             onClick,
-            isSelected
+            // isSelected
         }}>
             <ResourceName>{name}</ResourceName>
         </StyledListItem>

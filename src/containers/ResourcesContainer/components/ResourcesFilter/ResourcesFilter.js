@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import {ReactComponent as SearchIcon} from '../../../../assets/icons/search.svg';
 import {TextField} from '../../../../components/TextField/TextField';
 import {inputBackgroundColor} from '../../../../styles/colors';
+import {useComponentI18n} from "../../../../useComponentI18n";
+import i18n from "i18next";
 
 const FilterFieldContainer = styled.div`
-  outline: 3px solid green;
   display: flex;
   background-color: ${inputBackgroundColor};
   margin-top: 8px;
@@ -37,18 +38,18 @@ const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 export default function ResourcesFilter({onChange, value}) {
-  const {t} = global;
+    const { t, isLoading, error } = useComponentI18n(import.meta.url, i18n.language);
     return (
-        <FilterFieldContainer>
+        !isLoading && !error && (<FilterFieldContainer>
             <StyledTextField {...{
                 onChange,
                 value,
                 readOnly: false,
-                placeholder: t('RESROUCE_FILTER_PLACEHOLDER'),
+                placeholder: t('PLACEHOLDER'),
                 spellCheck: 'false'
             }} />
             <StyledSearchIcon/>
-        </FilterFieldContainer>
+        </FilterFieldContainer>)
     );
 }
 

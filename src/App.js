@@ -6,6 +6,8 @@ import {GlobalStyle} from './styles/appDefaultStyles';
 import ResourcesContainer from './containers/ResourcesContainer/ResourcesContainer';
 import {headerPanelHeight, VerticalContainer} from './styles/commonStyles';
 
+export const INITIAL_LANGUAGE = 'es-ES'
+
 const ApplicationContainer = styled(VerticalContainer)`
     min-height: calc(100vh - ${headerPanelHeight});
 `;
@@ -22,7 +24,7 @@ function App() {
 
     useEffect(() => {
         const init = async () => {
-            await initTranslation({lang: 'en-US'});
+            await initTranslation({ lang: INITIAL_LANGUAGE });
             setInitCompleted(true);
         };
         init();

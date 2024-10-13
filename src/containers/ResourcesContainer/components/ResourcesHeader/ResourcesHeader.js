@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { HeaderText, SubHeaderText } from '../../../../styles/commonStyles';
-import i18n from 'i18next';
 import { useComponentI18n } from "../../../../useComponentI18n";
 
 const ResourceHeaderText = styled(HeaderText)`
@@ -10,12 +9,12 @@ const ResourceHeaderText = styled(HeaderText)`
 `;
 
 export default function ResourcesHeader() {
-    const { t, isLoading, error } = useComponentI18n(import.meta.url, i18n.language);
+    const { t } = useComponentI18n(import.meta.url);
 
     return (
-        !isLoading && !error && (<>
+        <Suspense fallback={'Loading translations...'}>
             <ResourceHeaderText>{t('TITLE')}</ResourceHeaderText>
             <SubHeaderText>{t('SUBTITLE')}</SubHeaderText>
-        </>)
+        </Suspense>
     );
 }

@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import {ReactComponent as SearchIcon} from '../../../../assets/icons/search.svg';
 import {TextField} from '../../../../components/TextField/TextField';
 import {inputBackgroundColor} from '../../../../styles/colors';
 import {useComponentI18n} from "../../../../useComponentI18n";
-import i18n from "i18next";
 
 const FilterFieldContainer = styled.div`
   display: flex;
@@ -38,18 +37,20 @@ const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 export default function ResourcesFilter({onChange, value}) {
-    const { t, isLoading, error } = useComponentI18n(import.meta.url, i18n.language);
+    const { t } = useComponentI18n(import.meta.url);
     return (
-        !isLoading && !error && (<FilterFieldContainer>
-            <StyledTextField {...{
-                onChange,
-                value,
-                readOnly: false,
-                placeholder: t('PLACEHOLDER'),
-                spellCheck: 'false'
-            }} />
-            <StyledSearchIcon/>
-        </FilterFieldContainer>)
+        <Suspense fallback="Loading translations...">
+            <FilterFieldContainer>
+                <StyledTextField {...{
+                    onChange,
+                    value,
+                    readOnly: false,
+                    placeholder: t('PLACEHOLDER'),
+                    spellCheck: 'false'
+                }} />
+                <StyledSearchIcon/>
+            </FilterFieldContainer>
+        </Suspense>
     );
 }
 

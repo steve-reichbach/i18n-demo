@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import PropTypes from 'prop-types';
 import DetailsHeader from './components/DetailsHeader/DetailsHeader';
 import SectionHeader from './components/SectionHeader/SectionHeader';
@@ -6,7 +6,6 @@ import {TextField} from '../../../../components/TextField/TextField';
 import {VerticalContainer} from '../../../../styles/commonStyles';
 import styled from 'styled-components';
 import {useComponentI18n} from "../../../../useComponentI18n";
-import i18n from 'i18next';
 
 const WidgetContainer = styled(VerticalContainer)`
   min-height: 100%;
@@ -31,7 +30,7 @@ const FieldsContainer = styled.div`
 `;
 
 export default function DetailsView({resource}) {
-    const { t, isLoading, error } = useComponentI18n(import.meta.url, i18n.language);
+    const { t } = useComponentI18n(import.meta.url);
 
     const {name, description, resourceType, path} = resource;
 
@@ -55,19 +54,21 @@ export default function DetailsView({resource}) {
     ];
 
     return (
-        !isLoading && !error && (<WidgetContainer>
-            <DetailsHeader {...{name}} />
-            <ContentContainer>
-                <SectionContainer>
-                    <SectionHeader {...{
-                        headerText: t('TITLE')
-                    }} />
-                    <FieldsContainer>
-                        {fields.map((props) => <TextField key={props.value} {...props}/>)}
-                    </FieldsContainer>
-                </SectionContainer>
-            </ContentContainer>
-        </WidgetContainer>)
+        <Suspense fallback="Loading translations...">
+            <WidgetContainer>
+                <DetailsHeader {...{name}} />
+                <ContentContainer>
+                    <SectionContainer>
+                        <SectionHeader {...{
+                            headerText: t('TITLE')
+                        }} />
+                        <FieldsContainer>
+                            {fields.map((props) => <TextField key={props.value} {...props}/>)}
+                        </FieldsContainer>
+                    </SectionContainer>
+                </ContentContainer>
+            </WidgetContainer>
+        </Suspense>
     );
 }
 
